@@ -1,0 +1,47 @@
+#
+# Values for variables used in main.tf (root)
+# 
+
+#############################
+# Stuff that doesn't change #
+#############################
+
+# UID
+root_uid = "root_uid"
+
+#
+# AK Keys and Secrets
+#
+root_account_creds = {
+    ak = "root_ak"
+    secret = "root_secret"
+}
+
+shared_account_creds = {
+    ak = "shared_ak"
+    secret = "shared_secret"
+}
+
+######################
+# Stuff that changes #
+######################
+
+# App account credentials (one for each application)
+# LIMIT: 5 accounts (unless you make changes to
+# app_baseline to use a larger CIDR block)
+
+app0_creds = {
+    ak = "app0_ak"
+    secret = "app0_secret"
+}
+
+app1_creds = {
+    ak = "app1_ak"
+    secret = "app1_secret"
+}
+
+# App N
+#appN_creds = {
+#     ak = "my_ak"
+#     secret = "my_secret"
+# }
