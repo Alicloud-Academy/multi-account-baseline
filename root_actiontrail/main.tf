@@ -3,7 +3,7 @@
 #
 # Author: Jeremy Pedersen
 # Created 2020-01-27
-# Updated: 2020-09-24
+# Updated: 2020-11-27
 
 ###
 # Policy configuration
@@ -70,7 +70,7 @@ resource "alicloud_ram_policy" "service-dispatch-policy" {
 # be inserted inline into the policy document. This allows us to generate policy documents for
 # an arbitrary number of subaccounts.
 locals {
-  sub_ids = "${chomp(join("", formatlist("\"%s@log.aliyuncs.com\",\n", var.account_ids)))}"
+  sub_ids = chomp(join("", formatlist("\"%s@log.aliyuncs.com\",\n", var.account_ids)))
 }
 
 resource "alicloud_ram_role" "sls-audit-service" {

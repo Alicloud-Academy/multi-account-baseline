@@ -1,8 +1,8 @@
 # A Rough "Alibaba Cloud Multi-Account Baseline" Implementation
 
-- Terraform Version: v0.13.2
-- Alibaba Cloud Provider Version: v1.98.0
-- Status: Script working as of 2020-09-24 (YYYY-MM-DD)
+- Terraform Version: v0.13.4
+- Alibaba Cloud Provider Version: v1.104.0
+- Status: Script working as of 2020-11-27 (YYYY-MM-DD)
 
 ## What
 

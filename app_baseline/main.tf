@@ -3,7 +3,7 @@
 #
 # Author: Jeremy Pedersen
 # Created 2019-09-24
-# Updated: 2020-09-24
+# Updated: 2020-11-27
 
 # Data source used to determine current account ID
 data "alicloud_account" "current" {}
@@ -104,21 +104,21 @@ resource "alicloud_cen_instance_grant" "prod_vpc_cen_grant" {
 ###
 module "ram_audit_role" {
   source   = "../ram_audit_role"
-  root_uid = "${var.root_uid}"
+  root_uid = var.root_uid
 }
 
 module "ram_billing_role" {
   source   = "../ram_billing_role"
-  root_uid = "${var.root_uid}"
+  root_uid = var.root_uid
 }
 
 module "ram_admin_role" {
   source   = "../ram_admin_role"
-  root_uid = "${var.root_uid}"
+  root_uid = var.root_uid
 }
 
 # Configure policy for SLS cross-account audit access
 module "sub_actiontrail" {
   source   = "../sub_actiontrail"
-  root_uid = "${var.root_uid}"
+  root_uid = var.root_uid
 }
