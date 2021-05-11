@@ -3,7 +3,7 @@
 #
 # Author: Jeremy Pedersen
 # Created 2020-01-27
-# Updated: 2020-09-24
+# Updated: 2021-05-11
 
 ###
 # RAM role configuration to allow cross-account access to ActionTrail 
@@ -12,8 +12,8 @@
 
 # Create a new RAM policy
 resource "alicloud_ram_policy" "audit-service-policy" {
-  name        = "AliyunLogAuditServiceMonitorAccess"
-  document    = <<EOF
+  policy_name        = "AliyunLogAuditServiceMonitorAccess"
+  policy_document    = <<EOF
   {
     "Version": "1",
     "Statement": [

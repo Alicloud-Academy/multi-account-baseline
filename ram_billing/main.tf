@@ -2,7 +2,7 @@
 #
 # Author: Jeremy Pedersen
 # Creation Date: 2019-12-30
-# Last Updated: 2020-09-24
+# Last Updated: 2021-05-11
 
 # Fetch RAM login alias
 data "alicloud_ram_account_aliases" "ram_alias" {}
@@ -21,8 +21,8 @@ resource "alicloud_ram_login_profile" "ram-billing-profile" {
 
 # Create new billing system access policy
 resource "alicloud_ram_policy" "ram-billing-policy" {
-  name        = "billing"
-  document    = <<EOF
+  policy_name     = "billing"
+  policy_document = <<EOF
   {
     "Version": "1",
     "Statement": [
@@ -39,8 +39,8 @@ resource "alicloud_ram_policy" "ram-billing-policy" {
     ]
   }
   EOF
-  description = "Billing Access Policy"
-  force       = true
+  description     = "Billing Access Policy"
+  force           = true
 }
 
 # Attach the policy to the RAM user

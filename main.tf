@@ -7,7 +7,7 @@
 #
 # Author: Jeremy Pedersen
 # Created 2019-09-24
-# Updated: 2020-11-27
+# Updated: 2021-05-11
 
 #############################
 # Stuff that doesn't change #
@@ -19,10 +19,10 @@
 
 # Root account (logging, bill payment)
 provider "alicloud" {
-  alias   = "root"
+  alias      = "root"
   access_key = var.root_account_creds.ak
   secret_key = var.root_account_creds.secret
-  region  = var.region
+  region     = var.region
 }
 
 ###
@@ -48,7 +48,7 @@ resource "random_password" "ram_billing" {
   special = true
 }
 
-# ECS Login password
+# ECS Login password (for all instances)
 resource "random_password" "ecs_password" {
   length  = 10
   special = true
@@ -94,10 +94,13 @@ module "billing_ram" {
 
 # Shared account (shared services, network interconnect)
 provider "alicloud" {
-  alias   = "shared"
-  access_key = var.shared_account_creds.ak
-  secret_key = var.shared_account_creds.secret
-  region  = var.region
+  alias      = "shared"
+  access_key = var.root_account_creds.ak
+  secret_key = var.root_account_creds.secret
+  region     = var.region
+  assume_role {
+    role_arn = "acs:ram::${var.shared_account_uid}:role/resourcedirectoryaccountaccessrole"
+  }
 }
 
 module "shared_svc_baseline" {
@@ -153,10 +156,13 @@ module "system_logs" {
 
 # Application account providers
 provider "alicloud" {
-  alias   = "app0"
-  access_key = var.app0_creds.ak
-  secret_key = var.app0_creds.secret
-  region  = var.region
+  alias      = "app0"
+  access_key = var.root_account_creds.ak
+  secret_key = var.root_account_creds.secret
+  region     = var.region
+  assume_role {
+    role_arn = "acs:ram::${var.app0_uid}:role/resourcedirectoryaccountaccessrole"
+  }
 }
 
 module "app0_baseline" {
@@ -181,10 +187,13 @@ module "app0_baseline" {
 
 # Application accounts
 provider "alicloud" {
-  alias   = "app1"
-  access_key = var.app1_creds.ak
-  secret_key = var.app1_creds.secret
-  region  = var.region
+  alias      = "app1"
+  access_key = var.root_account_creds.ak
+  secret_key = var.root_account_creds.secret
+  region     = var.region
+  assume_role {
+    role_arn = "acs:ram::${var.app1_uid}:role/resourcedirectoryaccountaccessrole"
+  }
 }
 
 module "app1_baseline" {
@@ -196,6 +205,38 @@ module "app1_baseline" {
   # Application ID (a number from 0 to 4, unique for each app account)
   app_id   = 1
   env_name = "app1"
+  # CEN information (to authorize CEN bindings)
+  shared_svc_cen_id = module.shared_svc_baseline.cen_id
+  shared_svc_uid    = module.shared_svc_baseline.uid
+
+  # UID for granting RAM role access from root account
+  root_uid = var.root_uid
+}
+
+###
+# Configure app2 account
+###
+
+# Application accounts
+provider "alicloud" {
+  alias      = "app2"
+  access_key = var.root_account_creds.ak
+  secret_key = var.root_account_creds.secret
+  region     = var.region
+  assume_role {
+    role_arn = "acs:ram::${var.app2_uid}:role/resourcedirectoryaccountaccessrole"
+  }
+}
+
+module "app2_baseline" {
+  source = "./app_baseline"
+  providers = {
+    alicloud = alicloud.app2
+  }
+
+  # Application ID (a number from 0 to 4, unique for each app account)
+  app_id   = 2
+  env_name = "app2"
   # CEN information (to authorize CEN bindings)
   shared_svc_cen_id = module.shared_svc_baseline.cen_id
   shared_svc_uid    = module.shared_svc_baseline.uid
@@ -246,6 +287,16 @@ module "app1_baseline" {
 #   password = random_password.ecs_password.result
 # }
 
+# module "ecs_testbed_app2" {
+#   source = "./ecs_testbed"
+#   providers = {
+#     alicloud = alicloud.app2
+#   }
+#   env_name = module.app2_baseline.env_name
+#   root_uid = var.root_uid
+#   password = random_password.ecs_password.result
+# }
+
 ###################
 # Local Variables #
 ###################
@@ -268,6 +319,14 @@ locals {
       dev_vpc_id  = module.app1_baseline.dev_vpc_id
       uat_vpc_id  = module.app1_baseline.uat_vpc_id
       prod_vpc_id = module.app1_baseline.prod_vpc_id
+    },
+    # App 2
+    {
+      uid         = module.app2_baseline.uid
+      region      = module.app2_baseline.region
+      dev_vpc_id  = module.app2_baseline.dev_vpc_id
+      uat_vpc_id  = module.app2_baseline.uat_vpc_id
+      prod_vpc_id = module.app2_baseline.prod_vpc_id
     }
     # UPDATE: Insert additional application configurations here
   ]
@@ -277,7 +336,8 @@ locals {
   account_ids = [
     module.shared_svc_baseline.uid,
     module.app0_baseline.uid,
-    module.app1_baseline.uid
+    module.app1_baseline.uid,
+    module.app2_baseline.uid
     # UPDATE: Insert additional module configurations here
   ]
 }
@@ -285,7 +345,8 @@ locals {
   machine_identity_list = [
     module.shared_svc_baseline.env_name,
     module.app0_baseline.env_name,
-    module.app1_baseline.env_name
+    module.app1_baseline.env_name,
+    module.app2_baseline.env_name
     # UPDATE: Insert additional module configurations here
   ]
 }

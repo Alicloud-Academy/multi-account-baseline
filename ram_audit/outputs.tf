@@ -7,6 +7,7 @@ output "ram_login_name" {
 output "ram_login_password" {
   description = "RAM account password"
   value       = alicloud_ram_login_profile.ram-audit-profile.password
+  sensitive   = true
 }
 
 output "ram_login_alias" {

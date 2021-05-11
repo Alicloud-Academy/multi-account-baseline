@@ -15,5 +15,5 @@ variable "password" {
 
 variable "abc_image_id" {
   description = "Disk image to use when spinning up ECS instances"
-  default     = "ubuntu_18_04_x64_20G_alibase_20200426.vhd"
+  default     = "ubuntu_20_04_x64_20G_alibase_20210420.vhd"
 }

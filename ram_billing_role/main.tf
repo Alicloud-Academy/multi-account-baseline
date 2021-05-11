@@ -2,7 +2,7 @@
 #
 # Author: Jeremy Pedersen
 # Creation Date: 2020-01-26
-# Last Updated: 2020-09-24
+# Last Updated: 2021-05-11
 #
 
 resource "alicloud_ram_role" "billing-role" {
@@ -28,8 +28,8 @@ resource "alicloud_ram_role" "billing-role" {
 }
 
 resource "alicloud_ram_policy" "ram-billing-policy" {
-  name        = "billing-policy"
-  document    = <<EOF
+  policy_name     = "billing-policy"
+  policy_document = <<EOF
   {
     "Version": "1",
     "Statement": [
@@ -41,8 +41,8 @@ resource "alicloud_ram_policy" "ram-billing-policy" {
     ]
   }
   EOF
-  description = "Billing Access Policy"
-  force       = true
+  description     = "Billing Access Policy"
+  force           = true
 }
 
 resource "alicloud_ram_role_policy_attachment" "billing-attach" {

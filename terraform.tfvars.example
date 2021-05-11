@@ -17,10 +17,7 @@ root_account_creds = {
     secret = "root_secret"
 }
 
-shared_account_creds = {
-    ak = "shared_ak"
-    secret = "shared_secret"
-}
+shared_account_uid = "shared_uid"
 
 ######################
 # Stuff that changes #
@@ -30,18 +27,11 @@ shared_account_creds = {
 # LIMIT: 5 accounts (unless you make changes to
 # app_baseline to use a larger CIDR block)
 
-app0_creds = {
-    ak = "app0_ak"
-    secret = "app0_secret"
-}
+app0_uid = "app0_uid"
 
-app1_creds = {
-    ak = "app1_ak"
-    secret = "app1_secret"
-}
+app1_uid = "app1_uid"
+
+app2_uid = "app2_uid"
 
 # App N
-#appN_creds = {
-#     ak = "my_ak"
-#     secret = "my_secret"
-# }
+#appN_uid = "uid"

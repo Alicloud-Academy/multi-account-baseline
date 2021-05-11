@@ -3,7 +3,7 @@
 #
 # Author: Jeremy Pedersen
 # Created 2019-09-24
-# Updated: 2020-09-24
+# Updated: 2021-05-11
 
 # Get account metadata (needed to output UID for subaccount CEN grants)
 data "alicloud_account" "current" {}
@@ -20,7 +20,7 @@ data "alicloud_zones" "abc_zones" {
 
 # Create the shared services VPC group
 resource "alicloud_vpc" "shared-services-vpc" {
-  name       = "shared_services"
+  vpc_name   = "shared_services"
   cidr_block = var.vpc_cidr_block
 }
 
@@ -29,11 +29,11 @@ resource "alicloud_vswitch" "subnet" {
 
   count = var.num_subnets # Could be up to N, where N is the number of AZs in your selected region
 
-  name = "subnet_${count.index}"
+  vswitch_name = "subnet_${count.index}"
 
-  cidr_block        = cidrsubnet(var.vpc_cidr_block, 8, count.index)
-  availability_zone = element(data.alicloud_zones.abc_zones.zones.*.id, count.index)
-  vpc_id            = alicloud_vpc.shared-services-vpc.id
+  cidr_block = cidrsubnet(var.vpc_cidr_block, 8, count.index)
+  zone_id    = element(data.alicloud_zones.abc_zones.zones.*.id, count.index)
+  vpc_id     = alicloud_vpc.shared-services-vpc.id
 }
 
 # Create CEN Instance

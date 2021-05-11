@@ -2,7 +2,7 @@
 #
 # Author: Jeremy Pedersen
 # Creation Date: 2019-12-30
-# Last Updated: 2020-09-24
+# Last Updated: 2021-05-11
 #
 
 # Fetch RAM login alias
@@ -25,8 +25,8 @@ resource "alicloud_ram_login_profile" "ram-audit-profile" {
 # and allow the RAM account to assume an "audit" 
 # role under other accounts
 resource "alicloud_ram_policy" "ram-audit-policy" {
-  name        = "audit"
-  document    = <<EOF
+  policy_name     = "audit"
+  policy_document = <<EOF
   {
     "Statement": [
       {
@@ -43,8 +43,8 @@ resource "alicloud_ram_policy" "ram-audit-policy" {
     "Version": "1"
   }
   EOF
-  description = "Audit and Security Check Access Policy"
-  force       = true
+  description     = "Audit and Security Check Access Policy"
+  force           = true
 }
 
 # Attach the policy to the RAM user

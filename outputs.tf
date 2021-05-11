@@ -106,52 +106,52 @@ output "ram_app1_uid" {
 ###
 
 # # Shared Services
-# output "ecs_shared_svc_login" {
-#   description = "Login name for shared_svc account ECS instances"
-#   value       = module.ecs_testbed_shared.ecs_user_name
-# }
-
 # output "ecs_shared_svc_public_ips" {
 #   description = "Public IP addresses for shared_svc instance login"
 #   value       = module.ecs_testbed_shared.ecs_public_ips
 # }
 
-# output "ecs_shared_svc_password" {
-#   description = "Password for ECS instance login"
-#   value = module.ecs_testbed_shared.ecs_password
-#   sensitive = true
+# output "ecs_shared_svc_private_ips" {
+#   description = "Private IP addresses for shared_svc instance login"
+#   value       = module.ecs_testbed_shared.ecs_private_ips
 # }
 
 # # App 0
-# output "ecs_app0_login" {
-#   description = "Login name for app0 ECS instances"
-#   value       = module.ecs_testbed_app0.ecs_user_name
-# }
-
 # output "ecs_app0_public_ips" {
 #   description = "Public IP addresses for app0 instance login"
 #   value       = module.ecs_testbed_app0.ecs_public_ips
 # }
 
-# output "ecs_app0_password" {
-#   description = "Password for ECS instance login"
-#   value = module.ecs_testbed_app0.ecs_password
-#   sensitive = true
+# output "ecs_app0_private_ips" {
+#   description = "Private IP addresses for app0 instance login"
+#   value       = module.ecs_testbed_app0.ecs_private_ips
 # }
 
 # # App 1
-# output "ecs_app1_login" {
-#   description = "Login name for app1 ECS instances"
-#   value       = module.ecs_testbed_app1.ecs_user_name
-# }
-
 # output "ecs_app1_public_ips" {
 #   description = "Public IP addresses for app1 instance login"
 #   value       = module.ecs_testbed_app1.ecs_public_ips
 # }
 
-# output "ecs_app1_password" {
-#   description = "Password for ECS instance login"
-#   value = module.ecs_testbed_app1.ecs_password
-#   sensitive = true
+# output "ecs_app1_private_ips" {
+#   description = "Private IP addresses for app1 instance login"
+#   value       = module.ecs_testbed_app1.ecs_private_ips
+# }
+
+# # App 2
+# output "ecs_app2_public_ips" {
+#   description = "Public IP addresses for app2 instance login"
+#   value       = module.ecs_testbed_app2.ecs_public_ips
+# }
+
+# output "ecs_app2_private_ips" {
+#   description = "Private IP addresses for app2 instance login"
+#   value       = module.ecs_testbed_app2.ecs_private_ips
+# }
+
+# # ECS Password info
+# output "ecs_logon_password" {
+#   description = "ECS logon password for test instances"
+#   value       = random_password.ecs_password.result
+#   sensitive   = true
 # }

@@ -3,14 +3,14 @@
 #
 # Author: Jeremy Pedersen
 # Created 2020-01-27
-# Updated: 2020-11-27
+# Updated: 2021-05-11
 
 ###
 # Policy configuration
 ###
 resource "alicloud_ram_policy" "monitor-access-policy" {
-  name        = "AliyunLogAuditServiceMonitorAccess"
-  document    = <<EOF
+  policy_name     = "AliyunLogAuditServiceMonitorAccess"
+  policy_document = <<EOF
   {
     "Version": "1",
     "Statement": [
@@ -34,13 +34,13 @@ resource "alicloud_ram_policy" "monitor-access-policy" {
     ]
   }
   EOF
-  description = "Policy to allow root account access to monitor services"
-  force       = true
+  description     = "Policy to allow root account access to monitor services"
+  force           = true
 }
 
 resource "alicloud_ram_policy" "service-dispatch-policy" {
-  name        = "AliyunLogAuditServiceDispatchPolicy"
-  document    = <<EOF
+  policy_name     = "AliyunLogAuditServiceDispatchPolicy"
+  policy_document = <<EOF
   {
     "Version": "1",
     "Statement": [
@@ -56,8 +56,8 @@ resource "alicloud_ram_policy" "service-dispatch-policy" {
     ]
   }
   EOF
-  description = "Policy to allow root account to dispatch services"
-  force       = true
+  description     = "Policy to allow root account to dispatch services"
+  force           = true
 }
 
 ###

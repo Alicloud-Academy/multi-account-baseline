@@ -4,5 +4,4 @@ terraform {
       source = "aliyun/alicloud"
     }
   }
-  required_version = ">= 0.13"
 }

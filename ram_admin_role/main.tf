@@ -2,7 +2,7 @@
 #
 # Author: Jeremy Pedersen
 # Creation Date: 2020-01-26
-# Last Updated: 2020-09-24
+# Last Updated: 2021-05-11
 #
 resource "alicloud_ram_role" "admin-role" {
   name        = "admin-role"

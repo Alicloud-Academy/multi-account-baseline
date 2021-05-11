@@ -5,7 +5,7 @@
 #
 # Author: Jeremy Pedersen
 # Created 2020-01-27
-# Updated: 2020-09-24
+# Updated: 2021-05-11
 
 # Create Log Service Project
 resource "alicloud_log_project" "ecs-logging-project" {

@@ -32,11 +32,11 @@ variable "num_subnets" {
 # Access Keys and Secrets
 ###
 variable "root_account_creds" {
-  description = "Root account credentials (the rot account is the account under which the Resource Directory Organization and Accounts are created)"
+  description = "Root account credentials (the root account is the account under which the Resource Directory Organization and Accounts are created)"
 }
 
-variable "shared_account_creds" {
-  description = "The credentials for the shard services account, within Resource Directory"
+variable "shared_account_uid" {
+  description = "UID of Shared Services account"
 }
 
 ###
@@ -56,15 +56,19 @@ variable "ram_alias_postfix" {
 #
 # Application account profiles (add new variables here as you add application accounts)
 #
-variable "app0_creds" {
-  description = "Credentials for the app0 account under Resource Directory"
+
+variable "app0_uid" {
+  description = "UID of app0 account"
 }
 
-variable "app1_creds" {
-  description = "Credentials for the app1 account under Resource Directory"
+variable "app1_uid" {
+  description = "UID of app0 account"
 }
 
-# variable "appN_creds" {
-#   description = "Credentials for the appN account under Resource Directory"
+variable "app2_uid" {
+  description = "UID of app0 account"
+}
+
+# variable "appN_uid" {
+#   description = "UID of appN account"
 # }
-

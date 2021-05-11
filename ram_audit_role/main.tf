@@ -2,7 +2,7 @@
 #
 # Author: Jeremy Pedersen
 # Creation Date: 2020-01-26
-# Last Updated: 2020-09-24
+# Last Updated: 2021-05-11
 #
 
 ###
@@ -33,8 +33,8 @@ resource "alicloud_ram_role" "audit-role" {
 
 # Custom policy to explicity deny access to BSS (billing) info
 resource "alicloud_ram_policy" "ram-audit-policy" {
-  name        = "audit-policy"
-  document    = <<EOF
+  policy_name     = "audit-policy"
+  policy_document = <<EOF
   {
     "Version": "1",
     "Statement": [
@@ -46,8 +46,8 @@ resource "alicloud_ram_policy" "ram-audit-policy" {
     ]
   }
   EOF
-  description = "Audit Access Policy"
-  force       = true
+  description     = "Audit Access Policy"
+  force           = true
 }
 
 # Attach custom policy

@@ -3,3 +3,4 @@
 .terraform
 *.pem
 *.tfvars
+.terraform.lock.hcl
